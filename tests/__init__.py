@@ -1,0 +1,1 @@
+"""File that contains the tests of the application."""
