@@ -17,14 +17,6 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      - name: Configurar ambiente
-        run: |
-          echo "DB_USER=$DB_USER" >> $GITHUB_ENV
-          echo "DB_PASS=$DB_PASS" >> $GITHUB_ENV
-          echo "DB_HOST=$DB_HOST" >> $GITHUB_ENV
-          echo "DB_PORT=$DB_PORT" >> $GITHUB_ENV
-          echo "DB_NAME=$DB_NAME" >> $GITHUB_ENV
-
       - name: Set up python
         id: setup-python
         uses: actions/setup-python@v4
@@ -37,5 +29,5 @@ jobs:
       - name: List directory contents
         run: ls -la
 
-      - name: Run tests
-        run: pytest -v tests
+      - name: Executar Pytest
+        run: pytest -v tests --db-host $DB_HOST --db-port $DB_PORT --db-name $DB_NAME --db-user $DB_USER --db-pass $DB_PASS
