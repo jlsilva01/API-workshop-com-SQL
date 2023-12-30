@@ -6,13 +6,6 @@ jobs:
   Continuous-Integration:
     runs-on: ubuntu-latest
 
-    env:  
-      DB_HOST: ${{ secrets.PROD_DB_HOST }}
-      DB_PORT: ${{ secrets.PROD_DB_PORT }}
-      DB_NAME: ${{ secrets.PROD_DB_NAME }}
-      DB_USER: ${{ secrets.PROD_DB_USER }}
-      DB_PASS: ${{ secrets.PROD_DB_PASS }}
-
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -35,8 +28,8 @@ jobs:
       - name: Executar Pytest
         run: pytest -v tests
         env:  
-          DB_HOST: ${{ secrets.PROD_DB_HOST }}
-          DB_PORT: ${{ secrets.PROD_DB_PORT }}
-          DB_NAME: ${{ secrets.PROD_DB_NAME }}
-          DB_USER: ${{ secrets.PROD_DB_USER }}
-          DB_PASS: ${{ secrets.PROD_DB_PASS }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
