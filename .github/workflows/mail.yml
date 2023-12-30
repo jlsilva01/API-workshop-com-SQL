@@ -5,9 +5,13 @@ on: pull_request
 jobs:
   Continuous-Integration:
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+
+      - name: Debug Environment
+        run: env
 
       - name: Set up python
         id: setup-python
@@ -21,13 +25,11 @@ jobs:
       - name: List directory contents
         run: ls -la
 
-      - name: Usar uma secret
-        env:
-          db_user: ${{ secrets.db_user }}
-          db_host: ${{ secrets.db_host }}
-          db_pass: ${{ secrets.db_pass }}
-          db_port: ${{ secrets.db_port }}
-          db_name: ${{ secrets.db_name }}
-
-      - name: Run tests
+      - name: Executar Pytest
         run: pytest -v tests
+        env:  
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
