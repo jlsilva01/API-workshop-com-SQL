@@ -9,12 +9,13 @@ import urllib
 
 load_dotenv()  # Carrega as variáveis de ambiente do arquivo .env
 
-# Validar a questao do dotenv porque nao funciona no windows
-db_user = 'admin_user'
-db_pass = 'satc@2023'
-db_name = 'dados'
-db_host = 'satc-sql-server.database.windows.net'
-db_port = '1433'
+from decouple import config
+
+db_user = config('DB_USER')
+db_pass = config('DB_PASS')
+db_name = config('DB_NAME')
+db_host = config('DB_HOST')
+db_port = config('DB_PORT')
 
 # Configurando a conexão com o banco de dados
 # DATABASE_URL = "postgresql://meu_usuario:minha_senha@localhost:5432/meu_banco"
