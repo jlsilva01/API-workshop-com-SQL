@@ -5,25 +5,30 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 import os
 from dotenv import load_dotenv
+import urllib
 
 load_dotenv()  # Carrega as variáveis de ambiente do arquivo .env
 
 # Validar a questao do dotenv porque nao funciona no windows
-db_user     = 'meu_usuario'
-db_password = 'minha_senha'
-db_name     = 'meu_banco'
-db_host     = '192.168.0.110'
-db_instance = 'SQL2022'
-db_port     = '54341'
+db_user = 'admin_user'
+db_pass = 'satc@2023'
+db_name = 'dados'
+db_host = 'satc-sql-server.database.windows.net'
+db_port = '1433'
 
 # Configurando a conexão com o banco de dados
 # DATABASE_URL = "postgresql://meu_usuario:minha_senha@localhost:5432/meu_banco"
 
+odbc_str = f'''Driver={{ODBC Driver 17 for SQL Server}};Server={db_host};Database={db_name};Uid={db_user};Pwd={db_pass};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'''
+
+url_parseada = urllib.parse.quote_plus(odbc_str)
 # DATABASE_URL = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}" # Postgres
-DATABASE_URL = f'mssql+pyodbc://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}?driver=ODBC+Driver+17+for+SQL+Server&instance={db_instance}' # SQL Server
+# DATABASE_URL = f'mssql+pyodbc://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}?driver=ODBC+Driver+17+for+SQL+Server' # SQL Server
+
+connect_str = f'mssql+pyodbc:///?odbc_connect={url_parseada}'
 
 # Criando a engine de conexão
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(connect_str, echo=False)
 
 # Criando a sessão
 
