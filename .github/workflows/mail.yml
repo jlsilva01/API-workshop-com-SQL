@@ -9,6 +9,10 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
+      - name: Configurar ambiente
+        run: |
+          echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
+
       - name: Set up python
         id: setup-python
         uses: actions/setup-python@v4
